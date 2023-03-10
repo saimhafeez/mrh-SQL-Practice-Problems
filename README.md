@@ -169,3 +169,24 @@ In order to not show all the orders (there’s more than 800), show only those r
 ```sql
 SELECT OrderID, OrderDate = CONVERT(date, OrderDate), CompanyName FROM Orders JOIN Shippers ON Orders.shipVia = shippers.ShipperID WHERE OrderID < 10300
 ```
+
+# Introductory Problems
+
+## 20. Categories, and the total products in each category
+For this problem, we’d like to see the total number of products in each category. Sort the results by the total number of products, in descending order.
+```sql
+SELECT CategoryName, COUNT(ProductID) as 'No of Products' FROM Categories JOIN Products ON Categories.CategoryID = Products.CategoryID GROUP BY CategoryName ORDER BY 'No of Products' DESC
+```
+
+## 21. Total customers per country/city
+In the Customers table, show the total number of customers per Country and City.
+```sql
+SELECT Country, City, COUNT(City) as TotalCustomer FROM Customers GROUP BY Country, City ORDER BY TotalCustomer DESC
+```
+
+## 22. Products that need reordering
+What products do we have in our inventory that should be reordered? For now, just use the fields UnitsInStock and ReorderLevel, where UnitsInStock is less than the ReorderLevel, ignoring the fields UnitsOnOrder and Discontinued.
+Order the results by ProductID.
+```sql
+SELECT ProductID, ProductName, UnitsInStock, ReorderLevel FROM Products Where UnitsInStock < ReorderLevel ORDER BY ProductID
+```
